@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Grow Academy - أكاديمية تو جرو</title>
+    <!-- خط تجوال المميز -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --secondary: #6366F1;
+            --dark: #0F172A;
+            --light: #F8FAFC;
+            --gray: #64748B;
+            --accent: #F59E0B;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* الهيدر وشريط التنقل */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-main {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 10px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* قسم البطل (Hero Section) */
+        .hero {
+            padding: 160px 20px 90px;
+            text-align: center;
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent),
+                        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-badge {
+            background: #FEF3C7;
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* قسم الكورسات */
+        .courses-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .badge-free {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .course-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .course-body h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .course-body p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* باقة الهدايا المجانية داخل الكارت */
+        .gifts-box {
+            background: #F0FDF4;
+            border: 1px dashed var(--primary);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+
+        .gifts-box h4 {
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .gifts-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: #334155;
+        }
+
+        .gifts-list li {
+            position: relative;
+            padding-right: 18px;
+            margin-bottom: 4px;
+        }
+
+        .gifts-list li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .btn-card {
+            width: 100%;
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-card:hover {
+            background: var(--primary);
+        }
+
+        /* نموذج الاشتراك (Form Section) */
+        .registration-section {
+            background: white;
+            max-width: 700px;
+            margin: 40px auto 80px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        /* الفوتر */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9rem;
+        }
+
+        /* التجاوب مع التلفون */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">To <span>Grow</span> 🚀</a>
+            <ul class="nav-links">
+                <li><a href="#hero">الرئيسية</a></li>
+                <li><a href="#courses">الكورسات</a></li>
+                <li><a href="#register">الاشتراك</a></li>
+            </ul>
+            <a href="#register" class="btn-main">انضم إلينا الآن</a>
+        </div>
+    </header>
+
+    <!-- قسم البطل -->
+    <section class="hero" id="hero">
+        <div class="hero-badge">🎁 عرض حصري لفترة محدودة</div>
+        <h1>طوّر مهاراتك مع <span>To Grow</span> واحصل على كورسات مجانية!</h1>
+        <p>اشترك في أي كورس رئيسي واحصل فوراً على حزمة كورسات مجانية شاملة (الفريلانس، الذكاء الاصطناعي، تسويق المحترفين، والمزيد) بدون أي مصاريف إضافية!</p>
+        <a href="#courses" class="btn-main" style="padding: 14px 35px; font-size: 1.1rem;">استكشف الكورسات</a>
+    </section>
+
+    <!-- قسم الكورسات -->
+    <section class="courses-section" id="courses">
+        <div class="section-title">
+            <h2>الكورسات المتاحة والهدايا المجانية</h2>
+            <p style="color: var(--gray);">اختر مجالك واكتسب مهارة سوق العمل الحقيقية</p>
+        </div>
+
+        <div class="courses-grid">
+
+            <!-- كورس 1: البرمجة -->
+            <div class="course-card">
+                <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80');">
+                    <span class="badge-free">6 كورسات هدايا!</span>
+                </div>
+                <div class="course-body">
+                    <h3>كورس البرمجة الشامل</h3>
+                    <p>تعلم برمجة المواقع والتطبيقات من الصفر وحتى الاحتراف مع تطبيقات عملية.</p>
+                    <div class="gifts-box">
+                        <h4>🎁 هدايا مجانية مع الكورس:</h4>
+                        <ul class="gifts-list">
+                            <li>ماركتينج للمبتدئين وللمحترفين</li>
+                            <li>كورس الفريلانس وإيجاد عملاء</li>
+                            <li>احتراف موقع LinkedIn</li>
+                            <li>صناعة المحتوى (Reel Maker)</li>
+                            <li>أدوات الذكاء الاصطناعي للبرمجة</li>
+                        </ul>
+                    </div>
+                    <button class="btn-card" onclick="selectCourse('البرمجة')">اشترك الآن</button>
+                </div>
+            </div>
+
+            <!-- كورس 2: السوشيال ميديا -->
+            <div class="course-card">
+                <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80');">
+                    <span class="badge-free">6 كورسات هدايا!</span>
+                </div>
+                <div class="course-body">
+                    <h3>إدارة السوشيال ميديا</h3>
+                    <p>تعلم إدارة الصفحات، بناء الاستراتيجيات، والتعامل مع الجمهور بذكاء.</p>
+                    <div class="gifts-box">
+                        <h4>🎁 هدايا مجانية مع الكورس:</h4>
+                        <ul class="gifts-list">
+                            <li>ماركتينج للمبتدئين وللمحترفين</li>
+                            <li>كورس الفريلانس للعمل الحر</li>
+                            <li>احتراف حساب LinkedIn</li>
+                            <li>صناعة الريلز (Reel Maker)</li>
+                            <li>الذكاء الاصطناعي في التسويق</li>
+                        </ul>
+                    </div>
+                    <button class="btn-card" onclick="selectCourse('السوشيال ميديا')">اشترك الآن</button>
+                </div>
+            </div>
+
+            <!-- كورس 3: الجرافيك ديزاين -->
+            <div class="course-card">
+                <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80');">
+                    <span class="badge-free">6 كورسات هدايا!</span>
+                </div>
+                <div class="course-body">
+                    <h3>الجرافيك ديزاين</h3>
+                    <p>احتراف الفوتوشوب واليستريتور وتصميم الهويات البصرية والشعارات.</p>
+                    <div class="gifts-box">
+                        <h4>🎁 هدايا مجانية مع الكورس:</h4>
+                        <ul class="gifts-list">
+                            <li>ماركتينج للمبتدئين وللمحترفين</li>
+                            <li>طرق الحصول على مشاريع Freelance</li>
+                            <li>تسويق أعمالك على LinkedIn</li>
+                            <li>Reel Maker لعرض تصاميمك</li>
+                            <li>الذكاء الاصطناعي للمصممين</li>
+                        </ul>
+                    </div>
+                    <button class="btn-card" onclick="selectCourse('الجرافيك ديزاين')">اشترك الآن</button>
+                </div>
+            </div>
+
+            <!-- كورس 4: اللغة الإنجليزية -->
+            <div class="course-card">
+                <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=600&q=80');">
+                    <span class="badge-free">6 كورسات هدايا!</span>
+                </div>
+                <div class="course-body">
+                    <h3>اللغة الإنجليزية والتحدث</h3>
+                    <p>تطوير مهارات المحادثة والاستماع للعمل في الشركات العالمية بثقة.</p>
+                    <div class="gifts-box">
+                        <h4>🎁 هدايا مجانية مع الكورس:</h4>
+                        <ul class="gifts-list">
+                            <li>ماركتينج للمبتدئين وللمحترفين</li>
+                            <li>العمل الحر والتعامل مع أجانب</li>
+                            <li>بناء CV وحساب LinkedIn قوي</li>
+                            <li>Reel Maker لتقوية نطقك</li>
+                            <li>تطبيقات AI لتطوير اللغة</li>
+                        </ul>
+                    </div>
+                    <button class="btn-card" onclick="selectCourse('اللغة الإنجليزية')">اشترك الآن</button>
+                </div>
+            </div>
+
+            <!-- كورس 5: الديجيتال ماركتينج -->
+            <div class="course-card">
+                <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80');">
+                    <span class="badge-free">6 كورسات هدايا!</span>
+                </div>
+                <div class="course-body">
+                    <h3>الديجيتال ماركتينج</h3>
+                    <p>احتراف الإعلانات الممولة، التحليلات، وتسويق المحركات وتحقيق الأرباح.</p>
+                    <div class="gifts-box">
+                        <h4>🎁 هدايا مجانية مع الكورس:</h4>
+                        <ul class="gifts-list">
+                            <li>ماركتينج للمبتدئين وللمحترفين</li>
+                            <li>كورس الفريلانس الشامل</li>
+                            <li>تسويق خدماتك عبر LinkedIn</li>
+                            <li>Reel Maker والتسويق بالميديا</li>
+                            <li>استراتيجيات AI في التسويق</li>
+                        </ul>
+                    </div>
+                    <button class="btn-card" onclick="selectCourse('الديجيتال ماركتينج')">اشترك الآن</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- قسم التسجيل -->
+    <section class="registration-section" id="register">
+        <h2 style="text-align: center; margin-bottom: 25px;">احجز مقعدك الآن مع الهدايا</h2>
+        <form id="enrollForm" onsubmit="handleEnrollment(event)">
+            <div class="form-group">
+                <label for="name">الاسم بالكامل:</label>
+                <input type="text" id="name" required placeholder="أدخل اسمك هنا">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">رقم الهاتف (واتساب):</label>
+                <input type="tel" id="phone" required placeholder="01xxxxxxxxx">
+            </div>
+
+            <div class="form-group">
+                <label for="course">اختر الكورس الأساسي:</label>
+                <select id="course" required>
+                    <option value="">-- اختر الكورس --</option>
+                    <option value="البرمجة">كورس البرمجة</option>
+                    <option value="السوشيال ميديا">كورس السوشيال ميديا</option>
+                    <option value="الجرافيك ديزاين">كورس الجرافيك ديزاين</option>
+                    <option value="اللغة الإنجليزية">كورس اللغة الإنجليزية</option>
+                    <option value="الديجيتال ماركتينج">كورس الديجيتال ماركتينج</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-main" style="width: 100%; border-radius: 10px; padding: 14px; font-size: 1.1rem;">تأكيد الحصول على الهدايا والاشتراك</button>
+        </form>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 لأكاديمية <strong>To Grow</strong> 🚀</p>
+    </footer>
+
+    <!-- جافاسكربت للتفاعلات -->
+    <script>
+        // دالة لاختيار الكورس تلقائياً عند الضغط عليه والانتقال للفورم
+        function selectCourse(courseName) {
+            const courseSelect = document.getElementById('course');
+            courseSelect.value = courseName;
+            document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // دالة إرسال الاستمارة
+        function handleEnrollment(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const course = document.getElementById('course').value;
+
+            alert(`أهلاً بك يا ${name}! 🎉\n\nتم استلام طلبك بنجاح للاشتراك في [${course}].\nستحصل أيضاً على جميع الكورسات المجانية (ماركتينج، فريلانس، LinkedIn، Reel Maker، والذكاء الاصطناعي).\n\nسنتواصل معك عبر الواتساب على الرقم (${phone}) فوراً!`);
+            
+            // إعادة ضبط الاستمارة
+            document.getElementById('enrollForm').reset();
+        }
+    </script>
+</body>
+</html>
